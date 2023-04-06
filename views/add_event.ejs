@@ -1,0 +1,177 @@
+<html lang="en">
+    <head>
+        <%- include('./partials/head.ejs')%>
+        <link rel="stylesheet" href="./css/add_event.css">
+    </head>
+<body>
+    
+    <%- include('./partials/nav.ejs') %>
+    <div class="list">
+        <h3>List an Event</h3>
+    </div>
+        <div class="signup"> 
+            <!--  -->
+    <form action="/add_event" method="POST" enctype = "multipart/form-data">
+        <fieldset>
+            <label for="img" class="signup-label">
+                <i class="fa fa-envelope"></i>
+                   <span>Upload Image</span>
+               </label> 
+            <input class="signup-input image" type="file" placeholder="Image" name="img" onchange="return fileValidation()">  
+        </fieldset><br>
+
+        <fieldset>
+            <label for="name" class="signup-label">
+                <i class="fa fa-envelope"></i>
+                   <span>Event Name</span>
+               </label> 
+            <input class="signup-input" type="text" name="name" placeholder="Enter event name" required>  
+        </fieldset><br>
+
+        <fieldset>
+            <label for="introduction" class="signup-label">
+                <i class="fa fa-envelope"></i>
+                   <span>Introduction</span>
+               </label> 
+            <input class="signup-input" type="text" name="introduction" placeholder="Introduction" required>  
+        </fieldset><br>
+
+        <fieldset>
+            <label class="signup-label">
+                <i class="fa fa-lock"></i>
+            <span>Event Description</span>
+            </label>
+            <textarea class="signup-input" rows="5" placeholder="Description" name="description"></textarea>
+        </fieldset><br>
+
+        <fieldset>
+            <label class="signup-label">
+                <i class="fa fa-lock"></i>
+            <span>Location</span>
+            </label>
+            <input class="signup-input" placeholder="Enter location of the event" type="text" name="location"required>
+        </fieldset><br>
+
+
+        <fieldset>
+            <label for="date" class="signup-label">
+                <i class="fa fa-envelope"></i>
+                   <span>Date(Receving/ Single Time)</span>
+               </label> 
+               <input
+                    placeholder="Select Date"
+                    class="signup-input"
+                    type="text"
+                    onfocus="(this.type='date')"
+                    name="date"
+                     />
+        </fieldset><br>
+
+        <fieldset>
+            <label class="signup-label">
+                <i class="fa fa-lock"></i>
+            <span>Start Time</span>
+            </label>
+            <input class="signup-input" placeholder="Start time" type="text" name="time" required>
+        </fieldset><br>
+
+        <fieldset>
+            <label class="signup-label">
+                <i class="fa fa-lock"></i>
+            <span>No of tickets</span>
+            </label>
+            <input class="signup-input" type="number" placeholder="Enter number of ticket" name="tickets"required>
+        </fieldset><br>
+
+
+        <fieldset>
+            <label class="signup-label">
+                <i class="fa fa-lock"></i>
+            <span>Set Price</span>
+            </label>
+            <input class="signup-input" type="number" placeholder="Enter price ticket" name="price"required>
+        </fieldset><br>
+
+        <button class="submit"> Submit</button> 
+
+    </div>
+           
+    </form>
+
+</div>
+
+    
+<%- include('./partials/footer.ejs') %>
+
+<script>
+    function fileValidation() {
+        var fileInput =
+            document.querySelector('.image');
+         
+        var filePath = fileInput.value;
+     
+        // Allowing file type
+        var allowedExtensions =
+                /(\.jpg|\.jpeg|\.png)$/i;
+         
+        if (!allowedExtensions.exec(filePath)) {
+            alert('Invalid file type');
+            fileInput.value = '';
+            return false;
+        }
+        else
+        {
+         
+            // Image preview
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById(
+                        'imagePreview').innerHTML =
+                        '<img src="' + e.target.result
+                        + '"/>';
+                };
+                 
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+    }
+</script>
+
+
+    <!-- <script>
+          const form = document.querySelector('form');
+
+// form.addEventListener('submit',async (e) => {
+// //remove loading!
+//      e.preventDefault();
+    
+//     const name = form.name.value;
+//     const date = form.date.value;
+//     const time = form.time.value;
+//     const price = form.price.value;
+//     const loc = form.location.value;
+//     const desc = form.description.value;
+//     const tickets = form.tickets.value;
+//     const img = form.img.value;
+//     console.log(name, date, time, price, loc, desc, img);
+//     try{
+//         const res = await fetch('/add_event',{
+//             method: 'POST',
+//             body: JSON.stringify({name, date, time, price, loc, desc, img}),
+//             headers: {'Content-Type': 'application/json'}
+//         });
+//         const data = await res.json();
+//         if(data.errors){
+//             console.log(data.errors);
+//         }else{
+//             location.assign('/');
+//         }        
+//     }
+//     catch(err){
+//         console.log('signup.ejs',err);
+//     }
+// });
+    // </script> -->
+</body>
+</html>

@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="./css/signup.css">
+        <%- include('../partials/head.ejs') %>
+    </head>
+    <body>
+        <%- include('../partials/nav.ejs') %>
+        <div class="row">
+            <div class="column" style="background-color: #042469;">
+                <p class="text_left">Few away from creating your opensea account</p>
+            </div>
+            <div class="column">
+                <form class="login_form">
+                    <h2>Login</h2>    <br>
+
+                    <fieldset>
+                        <label for="email" class="signup-label">
+                               <span>Email</span>
+                           </label> 
+                        <input class="signup-input" type="email" name="email" placeholder="Enter email" required>  
+                    </fieldset>
+                    <div class="email error"></div><br>
+
+                    <fieldset>
+                        <label for="email" class="signup-label">
+                               <span>Password</span>
+                           </label> 
+                        <input class="signup-input pass" type="password" name="password" placeholder="Enter Password" required>  
+                        <input type="checkbox" onclick="myFunction()">Show Password
+                    </fieldset>
+                    <div class="password error"></div><br>
+
+                    <button>Login</button>
+                </form>
+            </div>    
+        </div>
+
+        <script>
+            function myFunction() {
+                var pass = document.querySelector(".pass");
+                if (pass.type === "password") {
+                    pass.type = "text";
+                } else {
+                    pass.type = "password";
+                }
+            }
+            const form = document.querySelector('.login_form');
+            const emailErrors = document.querySelector('.email.error');
+            const passwordErrors = document.querySelector('.password.error');
+
+            form.addEventListener('submit', async (e) =>{
+                // This will make sure that page will not refresh after submit is click
+                e.preventDefault();
+
+                const email = form.email.value;
+                const password = form.password.value;
+                
+                try{
+                    const res = await fetch('/login',{
+                        method: 'POST',
+                        body: JSON.stringify({email,password}),
+                        headers: {'Content-Type':'application/json'}
+                    });
+                    const data = await res.json();
+                    if(data.errors){
+                        emailErrors.textContent = data.errors.email;
+                        passwordErrors.textContent = data.errors.password;
+                    }
+                    if(data.user){
+                        location.assign('/');
+                    }
+                }
+                catch(err){
+                    console.log(err);
+                }
+            });
+        </script>
+    </body>
+</html>

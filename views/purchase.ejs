@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <%- include('./partials/head.ejs') %>
+        <style>
+            .contain{
+                margin: 150px auto;
+                max-width: 50%;
+            }
+            .contain .top, .contain .bottom{
+                border: 2px solid #E2E2E2;
+                padding: 20px;
+                margin: 10px;
+                border-radius: 10px;
+            }
+
+            p{
+                font-weight: bold;
+                font-size: 15px;
+            }
+            span{
+                font-weight: normal;
+                float: right;
+            }
+            .button{
+                width: 100%;
+                height: 50px;
+                margin: 10px 0;
+            }
+            button{
+                width: 95%;
+                background-color: #042469;
+                color: white;
+                padding: 10px;
+                margin-left: 20px;
+                /* height: 50px; */
+                font-weight: bold;
+            }
+        </style>
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <div class="contain">
+        <div class="top">
+            <h4><%= result.name %></h4>
+        </div>
+        <div class="bottom">
+            <p>
+                <%= result.name %> <span><%= result.price %></span><br>
+                Total Price <span><%= result.price %></span>
+            </p>
+        </div>
+        <div class="button">
+            <% if(user){ %> 
+            <a href="#"><button>Pay Now</button></a>
+            <% }else { %>            
+            <a href="/login"><button>Login</button></a>
+            <% } %>
+        </div>
+    </div>
+
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>
